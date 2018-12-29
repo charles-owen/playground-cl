@@ -1,0 +1,66 @@
+div.cl-playground {
+  div.cl-playground-root, div.cl-playground-left, div.cl-playground-right,
+  div.cl-playground-top, div.cl-playground-bottom {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    background: white;
+  }
+
+  div.cl-playground-left {
+    position: relative;
+    flex: 0 1 auto;
+    border-right: 1px solid #888;
+
+    div.cl-bar {
+      position: absolute;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      top: 0;
+      height: 100%;
+      right: -$drag-bar-width / 2;
+      width: $drag-bar-width;
+      background: transparent;
+      z-index: 100;
+      cursor: ew-resize;
+    }
+  }
+
+  div.cl-playground-right {
+  }
+
+  div.cl-playground-top {
+    flex: 0 1 auto;
+    width: 100%;
+    border-bottom: 1px solid #888;
+
+    div.cl-bar {
+      position: absolute;
+      margin: 0;
+      border: 0;
+      padding: 0;
+      bottom: -$drag-bar-width / 2;
+      height: $drag-bar-width;
+      width: 100%;
+      background: transparent;
+      z-index: 2;
+      cursor: ns-resize;
+    }
+  }
+
+  div.cl-playground-bottom {
+    // border-left: 5px solid #18453b;
+    width: 100%;
+    height: auto;
+  }
+
+  div.cl-playground-root {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+}

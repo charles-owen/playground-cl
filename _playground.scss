@@ -1,3 +1,15 @@
-div.cl-playground {
-  display: none;
-}
+
+@import "sass/modules/colors";
+@import "sass/modules/fonts";
+@import "sass/modules/variables";
+
+@import "sass/partials/toast";
+@import "sass/partials/playground";
+@import "sass/partials/menu";
+@import "sass/partials/work";
+@import "sass/partials/main";
+@import "sass/partials/dialog";
+@import "sass/partials/tables";
+@import "sass/partials/tabs";
+@import "sass/partials/pane";
+
