@@ -1,9 +1,9 @@
 import {Tools} from './DOM/Tools';
 
-import {FileMenu} from './Menus/FileMenu';
-import {EditMenu} from './Menus/EditMenu';
-import {TabsMenu} from './Menus/TabsMenu';
-import {HelpMenu} from './Menus/HelpMenu';
+// import {FileMenu} from './Menus/FileMenu';
+// import {EditMenu} from './Menus/EditMenu';
+// import {TabsMenu} from './Menus/TabsMenu';
+// import {HelpMenu} from './Menus/HelpMenu';
 
 /**
  * The program menu bar
@@ -11,15 +11,16 @@ import {HelpMenu} from './Menus/HelpMenu';
  * @constructor
  */
 export const Menu = function(main) {
+	const options = main.options;
+
+
     //
     // Create the menu components
     //
-    var fileMenu = new FileMenu(this, main);
-    var editMenu = new EditMenu(this, main);
-    var tabsMenu = new TabsMenu(this, main);
-    var helpMenu = new HelpMenu(this, main);
-
-    this.helpMenu = helpMenu;
+    // var fileMenu = new FileMenu(this, main);
+    // var editMenu = new EditMenu(this, main);
+    // var tabsMenu = new TabsMenu(this, main);
+    // var helpMenu = new HelpMenu(this, main);
 
     /// The nav element
     this.nav = null;
@@ -37,17 +38,36 @@ export const Menu = function(main) {
         this.nav.appendChild(ul);
         this.ul = ul;
 
+        for(const menu of options.menus) {
+        	const topLI = document.createElement('li');
+        	ul.appendChild(topLI);
+
+        	const a = document.createElement('a');
+        	topLI.appendChild(a);
+
+        	a.innerText = menu.name;
+        	if(menu.action !== undefined) {
+        		const action = main.playground.getAction(menu.action);
+        		a.addEventListener('click', (event) => {
+        			event.preventDefault();
+        			action.click(main);
+		        });
+
+	        }
+
+        }
+
         //
         // Add the menu component's HTML
         //
-	    let html = '';
+	    // let html = '';
 
-	    html += fileMenu.html();
-        html += editMenu.html();
-        html += tabsMenu.html();
-        html += helpMenu.html();
+	    // html += fileMenu.html();
+        // html += editMenu.html();
+        // html += tabsMenu.html();
+        // html += helpMenu.html();
 
-        ul.innerHTML = html;
+        // ul.innerHTML = html;
 
         //
 	    // Menu option for testing the Toast error reporting mechanism
@@ -85,10 +105,10 @@ export const Menu = function(main) {
         }
 
         // Activate all of the menus
-        fileMenu.activate();
-        editMenu.activate();
-        tabsMenu.activate();
-        helpMenu.activate();
+        // fileMenu.activate();
+        // editMenu.activate();
+        // tabsMenu.activate();
+        // helpMenu.activate();
     }
 
 	/**
@@ -120,8 +140,8 @@ export const Menu = function(main) {
             }
         }
 
-        tabsMenu.opening();
-        helpMenu.opening();
+        // tabsMenu.opening();
+        // helpMenu.opening();
 
 	    // And open this menu
 	    const ul = Tools.child(li, 'UL');

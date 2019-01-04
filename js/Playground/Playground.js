@@ -1,6 +1,7 @@
 import {Main} from './Main';
 import {Options} from './Options';
 import {Ready} from './Utility/Ready';
+import {Action} from './Actions/Action';
 
 /**
  * Create an instance of the Playground
@@ -18,11 +19,13 @@ import {Ready} from './Utility/Ready';
  *     var playground = new Playground('#playground');
  *     playground.start();
  *
+ * @param site Site object
  * @param sel Selector or element to create Playground in (can be many)
  * @param options An object containing Playground options.
  * @constructor
  */
 export const Playground = function(site, sel, options) {
+
     //
     // Master set of the version
     //
@@ -78,4 +81,26 @@ export const Playground = function(site, sel, options) {
 
         return null;
     }
+
+	/**
+	 * Get a constructed Action object from the available playground actions.
+	 * @param action The action data from the server.
+	 * @returns Action object
+	 */
+	this.getAction = function(action) {
+    	if(Playground.actions[action.tag] !== undefined) {
+    		return new (Playground.actions[action.tag])(site, action);
+	    }
+
+	    console.log('Playground action ' + action.tag + ' does not exist');
+	    return null;
+    }
+}
+
+Playground.Action = Action;
+
+Playground.actions = {};
+
+Playground.addAction = function(action) {
+	this.actions[action.tag] = action;
 }

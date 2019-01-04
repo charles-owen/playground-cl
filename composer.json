@@ -19,5 +19,10 @@
       "type": "vcs",
       "url": "https://github.com/charles-owen/playground-cl.git"
     }
-  ]
+  ],
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.0.x-dev"
+    }
+  }
 }

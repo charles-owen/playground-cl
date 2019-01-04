@@ -7,7 +7,7 @@ import {Tabs} from './Tabs';
  * @param parent Pane parent object
  * @constructor
  */
-export const Pane = function(main, element, parent, donorTabs) {
+export const Pane = function(main, element, parent) {
 	this.minSplit = 10;
 	this.maxSplit = 90;
 
@@ -29,16 +29,30 @@ export const Pane = function(main, element, parent, donorTabs) {
 
 		element.appendChild(div);
 
-		if(donorTabs !== null) {
-			console.log(donorTabs);
-			tabs = donorTabs;
-			tabs.newParent(this);
+		// if(donorTabs !== null) {
+		// 	tabs = donorTabs;
+		// 	tabs.newParent(this);
+		// } else {
+		// 	tabs = new Tabs(main, div);
+		// }
+	}
+
+	/**
+	 * Load the pane from the data
+	 * @param data Data from options for this pane
+	 */
+	this.load = function(data) {
+		if(data.child1 !== undefined) {
+			// This is a split pane
+			this.split(data.horiz, data.child1, data.child2);
+			this.percentage(data.percentage);
 		} else {
 			tabs = new Tabs(main, div);
+			tabs.load(data.tabs);
 		}
 	}
 
-	this.split = function(horizontal) {
+	this.split = function(horizontal, child1Data, child2Data) {
 		horizontalSplit = horizontal;
 
 		child1 = new Pane(main, div, this, tabs);
@@ -81,12 +95,18 @@ export const Pane = function(main, element, parent, donorTabs) {
 			element.addEventListener('touchcancel', touchCancel);
 		});
 
-
-
 		this.child1 = child1;
 		this.child2 = child2;
 
 		this.percentage(50);
+
+		if(child1Data !== undefined) {
+			child1.load(child1Data);
+		}
+
+		if(child2Data !== undefined) {
+			child2.load(child2Data);
+		}
 
 		return {child1: child1, child2: child2};
 	}
@@ -182,6 +202,19 @@ export const Pane = function(main, element, parent, donorTabs) {
 		} else {
 			child1.div.style.height = per + '%';
 		}
+	}
+
+	this.getTab = function(tag) {
+		for(const collection of [tabs, child1, child2]) {
+			if(collection !== null) {
+				let tab = collection.getTab(tag);
+				if(tab !== null) {
+					return tab;
+				}
+			}
+		}
+
+		return null;
 	}
 
 

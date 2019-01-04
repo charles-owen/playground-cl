@@ -1,6 +1,6 @@
 div.cl-playground {
 
-  div.playground-overlay {
+  div.cl-pg-overlay {
     position: absolute;
     left: 0;
     right: 0;
@@ -12,7 +12,7 @@ div.cl-playground {
     display: none;
   }
 
-  div.main {
+  div.cl-pg-main {
     // Normalizations
     line-height: normal;
     font-size: 1rem;
@@ -44,13 +44,12 @@ div.cl-playground-window {
   width: 100%;
   height: 600px;
   margin: 0;
-  border-left: 0;
-  border-right: 0;
   padding: 0;
-  border-top: thin solid $window-borders;
+  border: thin solid $window-borders;
+  border-bottom: none;
   background: white;
   min-height: 100px;
-  min-width: 800px;
+  min-width: 400px;
 }
 
 div.cl-playground-gap-before, div.cl-playground-gap-after {

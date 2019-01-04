@@ -1,5 +1,5 @@
 /**
- * User interface options.
+ * Playground options.
  * @param options User provided options that override the default values.
  * @constructor
  */
@@ -8,90 +8,18 @@ export const Options = function(options) {
 
     /// Display options
     /// window - Displays as a standard div (default)
-    /// full - Full screen
     this.display = 'window';
 
-    /// Any content (JSON) to preload
-    this.load = null;
+    /// Optional height setting
+    this.height = null;
 
-    /// Any additional tabs to add
-    /// Do not include "main", it is always included
-    this.tabs = [];
+    /// The playground root pane
+    this.pane = {};
 
-    /// Do we include the input/export menu options?
-    /// Options are: 'none', 'import', 'export', 'both'
-    this.export = 'both';
+    /// The top-level menu options
+    this.menus = [{name: 'About'}];
 
-    /// Number of milliseconds between tests
-    /// Set larger to slow the tests down
-    this.testTime = 17;
 
-    /// A user ID associated with some remote system
-    /// Primary used for AJAX file/save functionality
-    this.userid = null;
-
-	/**
-	 * All installed tests as an array of tests, each of
-     * which represents a single test. Each test can be
-     * a Javascript object, JSON of an object, or base64 of
-     * a JSON object. The use of base64 helps to obfuscate tests.
-     *
-	 * The underlying test is a JavaScript object with these tags:
-	 *
-	 * tag: A tag to identify the test
-	 * name: Name of the test, what will appear in menus
-	 * input: Array of input labels
-	 * output: Array of output labels
-	 * test: Array of tests, each an array of input/expected
-	 * staff: true if this is staff testing (no saving)
-     * result: A results selector
-     * circuit: A circuit selector
-     * success: A value to set the results selector to on a success
-     *
-     * If result is set, any element that matches that selector will
-     * be set to 0 or the value of 'success' depending on the test failure/success
-     *
-     * If circuit is set, any element that matches that selector will
-     * have its value set to the current circuit when the test is selected.
-	 */
-    this.tests = [];
-
-    /// Any import options, importing from
-    /// files from other assignments
-   // this.imports = [];
-
-    /// Optional specification of server-side API for save/load capabilities
-    /// Most simple version is a URL for the server.
-    /// More advanced version is an object with these optional properties:
-    ///
-    /// url - Server URL
-    /// extra - Object with extra data to be send with API operations
-    /// save - Object with save-specific resources (url, name, mode, extra)
-    /// open - Object with open-specific resources (url, extra)
-    /// files - Object with directory query-specific resources
-    ///
-    this.api = null;
-
-    /// Optional exit link. If provided, the menu will have an "Exit" option
-    /// with this link in it.
-    this.exit = null;
-
-    /// Indication of what components are included in the palette.
-    /// This can be:
-    /// A string with a palette name
-    /// [or] An array containing strings that name components
-    /// or palette names.
-    ///
-    /// Examples:
-    /// components: 'combinatorial'
-    /// components: ['combinatorial', 'Or3', 'Or4']
-    /// components: ['sequential']
-    ///
-    this.components = ['combinatorial', 'sequential'];
-
-    /// List of components that are always included even if specific components are
-    /// specified in this.components.
-    this.always = ['Zero', 'One', 'InPin', 'OutPin', 'Clock', 'Button', 'LED'];
 
 
     for(var property in options) {

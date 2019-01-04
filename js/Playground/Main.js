@@ -1,7 +1,6 @@
 import Resizer from 'resizer-cl';
 
 import {Menu} from './Menu';
-import {Tabs} from './Tabs';
 import {Toast} from './Graphics/Toast';
 import {DragAndDrop} from './UI/DragAndDrop';
 import {Tools} from './DOM/Tools';
@@ -15,7 +14,7 @@ import {Pane} from "./Pane";
  * @constructor
  */
 export const Main = function(playground, element) {
-    this.cirsim = playground;
+    this.playground = playground;
     this.site = playground.site;
     this.element = element;
     this.options = playground.options;
@@ -38,13 +37,17 @@ export const Main = function(playground, element) {
 
         element.style.display = 'block';
 
+	    if(options.height !== null) {
+		    element.style.height = options.height;
+	    }
+
         switch(options.display) {
             case 'full':
-                Tools.addClass(element, 'cl-playground-full');
+                element.classList.add('cl-playground-full');
                 break;
 
             default:
-                Tools.addClass(element, 'cl-playground-window');
+	            element.classList.add('cl-playground-window');
                 break;
         }
 
@@ -72,11 +75,8 @@ export const Main = function(playground, element) {
             //
 
             // <div class="main"></div>
-            this.div = Tools.createClassedDiv('main');
+            this.div = Tools.createClassedDiv('cl-pg-main');
             this.element.appendChild(this.div);
-
-        //    tabs = new Tabs(this);
-        //    this.tabs = tabs;
 
             //
             // Add the menu
@@ -91,31 +91,18 @@ export const Main = function(playground, element) {
             divWork = Tools.createClassedDiv('work');
             this.div.appendChild(divWork);
 
+
 			//
 	        // And the root pane
 	        //
 	        this.rootPane = new Pane(this, divWork, null, null);
-
-	        this.rootPane.split(true);
-
-	        // this.rootPane.child1.div.addEventListener('click', (event) => {
-	        // 	this.rootPane.percentage(20);
-	        // })
-	        //
-	        // this.rootPane.child2.div.addEventListener('click', (event) => {
-		    //     this.rootPane.percentage(90);
-	        // })
-
-            //
-            // And add the tabs
-            //
-       //     tabs.create(divWork);
+	        this.rootPane.load(options.pane);
 
 	        //
 	        // And the overlay
 	        // <div class="cirsim-overlay"></div>
 	        //
-	        divOverlay = Tools.createClassedDiv('playground-overlay');
+	        divOverlay = Tools.createClassedDiv('cl-pg-overlay');
 	        this.div.appendChild(divOverlay);
 
             this.toast = new Toast(this);
@@ -124,10 +111,10 @@ export const Main = function(playground, element) {
 
     }
 
+    this.getTab = function(tag) {
+        return this.rootPane.getTab(tag);
+    }
 
-    this.currentView = function() {
-        return tabs.currentView();
-    };
 
     /**
      * Called whenever a new tab is selected
@@ -136,20 +123,7 @@ export const Main = function(playground, element) {
 
     }
 
-    /**
-     * Backup the current circuits object in support of an Undo operation
-     */
-    this.backup = function() {
 
-    };
-
-    /**
-     * Undo operation
-     */
-    this.undo = function() {
-        tabs.undo();
-
-    };
 
     /**
      * Set or clear interface modal state.
@@ -164,31 +138,6 @@ export const Main = function(playground, element) {
         }
     }
 
-
-
-    /**
-     * Complete reload after a new model is loaded
-     */
-    this.reload = function() {
-        tabs.destroy();
-        tabs.create(divWork, model);
-    }
-
-    var dockedHelp = false;
-
-
-    this.isHelpDocked = function() {
-        return dockedHelp;
-    }
-
-    this.dockedHelp = function(dock) {
-        dockedHelp = dock;
-        if(dockedHelp) {
-            Tools.addClass(this.element, 'docked-help');
-        } else {
-	        Tools.removeClass(this.element, 'docked-help');
-        }
-    }
 
     this.initialize();
 }
