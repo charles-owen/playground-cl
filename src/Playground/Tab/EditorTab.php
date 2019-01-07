@@ -6,7 +6,9 @@
 
 namespace CL\Playground\Tab;
 
-
+/**
+ * A tab for source code editing
+ */
 class EditorTab extends Tab {
 	/**
 	 * Tab constructor.
