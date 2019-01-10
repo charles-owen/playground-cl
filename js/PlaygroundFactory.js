@@ -19,6 +19,20 @@ PlaygroundFactory.create = function(site) {
 		install();
 	});
 
+
+	site.messageListener((msg, data) => {
+		switch(msg) {
+			case 'cl-quiz-after-installed':
+				install();
+				break;
+
+			case 'cl-grades-grader-installed':
+				install();
+				break;
+
+		}
+	});
+
 	site.Playground = Playground;
 }
 

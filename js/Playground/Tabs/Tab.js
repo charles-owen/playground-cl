@@ -28,6 +28,7 @@ export const Tab = function(tabs, data) {
 		this.select();
 	});
 
+	this.set = function(text) {}
 
 	//
 	// The menu

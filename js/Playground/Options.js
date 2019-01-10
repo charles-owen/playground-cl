@@ -19,7 +19,8 @@ export const Options = function(options) {
     /// The top-level menu options
     this.menus = [{name: 'About'}];
 
-
+    /// Content to initially load into the tabs
+    this.load = null;
 
 
     for(var property in options) {

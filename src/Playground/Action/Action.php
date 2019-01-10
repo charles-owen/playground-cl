@@ -73,8 +73,36 @@ class Action {
 			'tag'=>$this->tag
 		];
 
+		foreach($this->options as $name => $value) {
+			$data[$name] = $value;
+		}
+
+		if(count($this->sources) > 0) {
+			$data['sources'] = $this->sources;
+		}
+
 		return $data;
 	}
 
+	/**
+	 * Add an option to send to runtime for this action.
+	 * @param string $name
+	 * @param mixed $value
+	 */
+	public function option($name, $value) {
+		$this->options[$name] = $value;
+	}
+
+	/**
+	 * Add a source associated with this action.
+	 * @param string $tag Tag for the tab we get the data from
+	 */
+	public function source($tag) {
+		$this->sources[] = $tag;
+	}
+
+
 	private $tag;
+	private $options = [];
+	private $sources = [];
 }

@@ -95,9 +95,9 @@ class Playground {
 	}
 
 	/**
-	 * Add a new menu
-	 * @param $name
-	 * @return Menu
+	 * Add a sub menu
+	 * @param string $name Name that appears for the menu
+	 * @return Menu object
 	 */
 	public function addMenu($name) {
 		$menu = new Menu($name);
@@ -141,12 +141,25 @@ class Playground {
 		];
 
 		$this->optional($data, 'height', $this->height);
+		$this->optional($data, 'load', $this->load);
 
 
 
 		return $data;
 	}
 
+	/**
+	 * Load the playground with data from the file system.
+	 * @param Site $site The site object
+	 * @param User $user User we are loading for
+	 */
+	public function load(Site $site, User $user, $appTag, $name) {
+		$fileSystem = new FileSystem($site->db);
+		$load = $fileSystem->readText($user->id, $user->member->id, $appTag, $name);
+		if($load !== null) {
+			$this->load = $load['data'];
+		}
+	}
 
 	private function optional(array &$data, $name, $value) {
 		if($value !== null) {
@@ -159,4 +172,5 @@ class Playground {
 	private $height = null;
 	private $pane;
 	private $menus = [];
+	private $load = null;
 }

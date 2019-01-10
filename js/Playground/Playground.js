@@ -2,6 +2,7 @@ import {Main} from './Main';
 import {Options} from './Options';
 import {Ready} from './Utility/Ready';
 import {Action} from './Actions/Action';
+import {AllActions} from './Actions/AllActions';
 
 /**
  * Create an instance of the Playground
@@ -104,3 +105,5 @@ Playground.actions = {};
 Playground.addAction = function(action) {
 	this.actions[action.tag] = action;
 }
+
+AllActions.addAll(Playground);

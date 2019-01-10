@@ -1,0 +1,24 @@
+div.cl-pg-about {
+  width: auto !important;
+
+  figure {
+    margin: 0;
+    width: 400px;
+    height: 225px;
+    background: black;
+  }
+
+  div.cl-pg-about-div {
+    padding: 1em;
+
+    h1 {
+      font-size: 1.5em;
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+    }
+  }
+
+}

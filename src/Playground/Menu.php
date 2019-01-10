@@ -75,11 +75,26 @@ class Menu {
 		}
 	}
 
-
+	/**
+	 * Create data suitable for sending to the client.
+	 * @param Site $site the Site object
+	 * @return array
+	 */
 	public function data(Site $site) {
+
+
 		$data = [
 			'name' => $this->name
 		];
+
+		if(count($this->menus) > 0) {
+			$menuData = [];
+			foreach($this->menus as $menu) {
+				$menuData[] = $menu->data($site);
+			}
+
+			$data['menus'] = $menuData;
+		}
 
 		if($this->action !== null) {
 			$data['action'] = $this->action->data($site);
@@ -88,6 +103,19 @@ class Menu {
 		return $data;
 	}
 
+	/**
+	 * Add a sub menu
+	 * @param string $name Name that appears for the menu
+	 * @return Menu object
+	 */
+	public function addMenu($name) {
+		$menu = new Menu($name);
+		$this->menus[] = $menu;
+		return $menu;
+	}
+
+
 	private $name;
 	private $action = null;
+	private $menus = [];
 }

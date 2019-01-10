@@ -31,28 +31,85 @@ export const Menu = function(main) {
         // <nav class="menubar"><ul></ul></nav>
         //
         this.nav = document.createElement('nav');
-        Tools.addClass(this.nav, 'menubar');
+        Tools.addClass(this.nav, 'cl-pg-menubar');
         main.div.appendChild(this.nav);
 
         const ul = document.createElement('ul');
         this.nav.appendChild(ul);
         this.ul = ul;
 
-        for(const menu of options.menus) {
+        const menus = options.menus;
+        menus.push({
+	        name: 'Help',
+	        menus: [
+		        {name: 'About', action: {tag: 'about'}}
+	        ]
+        });
+
+        for(const menu of menus) {
         	const topLI = document.createElement('li');
         	ul.appendChild(topLI);
 
         	const a = document.createElement('a');
         	topLI.appendChild(a);
-
         	a.innerText = menu.name;
-        	if(menu.action !== undefined) {
-        		const action = main.playground.getAction(menu.action);
-        		a.addEventListener('click', (event) => {
-        			event.preventDefault();
-        			action.click(main);
-		        });
 
+        	if(menu.action !== undefined) {
+        		// Top level only menu
+        		const action = main.playground.getAction(menu.action);
+		        for(const element of [a, topLI]) {
+		        	element.addEventListener('click', (event) => {
+				        event.preventDefault();
+				        event.stopPropagation();
+				        action.do(main);
+			        });
+		        }
+	        }
+
+	        if(menu.menus !== undefined) {
+	        	// Pull-down menu
+	        	const subUL = document.createElement('ul');
+	        	topLI.appendChild(subUL);
+
+	        	for(const element of [a, topLI]) {
+			        element.addEventListener('click', (event) => {
+				        event.preventDefault();
+				        event.stopPropagation();
+
+				        if(getComputedStyle(subUL).getPropertyValue('visibility') === 'hidden') {
+					        open(topLI);
+				        } else {
+					        // If already open, close all
+					        this.closeAll();
+				        }
+
+			        });
+		        }
+
+	        	for(const subMenu of menu.menus) {
+			        const subLI = document.createElement('li');
+			        subUL.appendChild(subLI);
+
+			        const a = document.createElement('a');
+			        subLI.appendChild(a);
+			        a.innerText = subMenu.name;
+
+			        if(subMenu.action !== undefined) {
+				        // Top level only menu
+				        const action = main.playground.getAction(subMenu.action);
+				        if(action !== null) {
+					        for(const element of [a, topLI]) {
+						        element.addEventListener('click', (event) => {
+							        event.preventDefault();
+							        event.stopPropagation();
+							        this.closeAll();
+							        action.do(main);
+						        });
+					        }
+				        }
+
+			        }
+		        }
 	        }
 
         }
@@ -85,24 +142,24 @@ export const Menu = function(main) {
         //
         // Install click handlers for all top-level menus
         //
-        for(const node of ul.childNodes) {
-            if(node.tagName === 'LI') {
-                node.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    // Find the <ul> in this menu
-                    let ulSub = Tools.child(node, 'UL');
-                    if(ulSub !== null) {
-	                    if(getComputedStyle(ulSub).getPropertyValue('visibility') === 'hidden') {
-		                    open(node);
-	                    } else {
-	                        // If already open, close all
-		                    this.closeAll();
-	                    }
-                    }
-                });
-            }
-        }
+        // for(const node of ul.childNodes) {
+        //     if(node.tagName === 'LI') {
+        //         node.addEventListener('click', (event) => {
+        //             event.preventDefault();
+		//
+        //             // Find the <ul> in this menu
+        //             let ulSub = Tools.child(node, 'UL');
+        //             if(ulSub !== null) {
+	    //                 if(getComputedStyle(ulSub).getPropertyValue('visibility') === 'hidden') {
+		//                     open(node);
+	    //                 } else {
+	    //                     // If already open, close all
+		//                     this.closeAll();
+	    //                 }
+        //             }
+        //         });
+        //     }
+        // }
 
         // Activate all of the menus
         // fileMenu.activate();
@@ -135,18 +192,15 @@ export const Menu = function(main) {
             if(node.tagName === 'LI') {
 	            const ul = Tools.child(node, 'UL');
                 if(ul !== null) {
-                    Tools.removeClass(ul, 'menu-open');
+                   // Tools.removeClass(ul, 'cl-pg-menu-open');
                 }
             }
         }
 
-        // tabsMenu.opening();
-        // helpMenu.opening();
-
 	    // And open this menu
 	    const ul = Tools.child(li, 'UL');
 	    if(ul !== null) {
-		    Tools.addClass(ul, 'menu-open');
+	    	ul.classList.add('cl-pg-menu-open');
 	    }
 
 	    document.addEventListener('click', closeListener);
@@ -159,7 +213,7 @@ export const Menu = function(main) {
 		    if(node.tagName === 'LI') {
 			    const ul = Tools.child(node, 'UL');
 			    if(ul !== null) {
-				    Tools.removeClass(ul, 'menu-open');
+				    Tools.removeClass(ul, 'cl-pg-menu-open');
 			    }
 		    }
 	    }

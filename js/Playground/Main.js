@@ -107,6 +107,23 @@ export const Main = function(playground, element) {
 
             this.toast = new Toast(this);
             this.toast.create(this.div);
+
+            //
+            // Any data to load?
+            //
+            if(options.load !== null) {
+                let load = options.load;
+                if(typeof load === 'string' || load instanceof String) {
+                    load = JSON.parse(load);
+                }
+
+                for(const tag in load) {
+                    const tab = this.getTab(tag);
+                    if(tab !== null) {
+                        tab.set(load[tag]);
+                    }
+                }
+            }
         }
 
     }
