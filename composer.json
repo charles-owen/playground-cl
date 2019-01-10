@@ -14,6 +14,9 @@
       "CL\\Playground\\": "src/Playground"
     }
   },
+  "require" : {
+    "cl/course": "^2.1"
+  },
   "repositories": [
     {
       "type": "vcs",
