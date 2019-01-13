@@ -44,6 +44,7 @@ class Pane {
 	/**
 	 * Split this pane into two child panes
 	 * @param boolean $horizontal If true, split horizontally
+	 * @param int $percentage Percentage across the division is
 	 * @return array
 	 */
 	public function split($horizontal, $percentage=50) {
@@ -63,6 +64,10 @@ class Pane {
 		$this->tabs[] = $tab;
 	}
 
+	/**
+	 * Convert data to a format suitable for sending to client
+	 * @return array Data for client
+	 */
 	public function data() {
 
 		if($this->child1 !== null) {

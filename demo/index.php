@@ -1,4 +1,5 @@
 <?php
+/// @cond
 namespace CL\Playground;
 
 
@@ -53,6 +54,9 @@ echo $view->reenterContent();
 ?>
 <p>&nbsp;</p>
 
-<?php echo $view->footer(); ?>
+<?php
+echo $view->footer();
+/// @endcond
+?>
 </body>
 </html>

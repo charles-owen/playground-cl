@@ -13,7 +13,10 @@ use CL\Site\Site;
  * Base class for actions that can be executed in the playground.
  */
 class Action {
-
+	/**
+	 * Action constructor.
+	 * @param string $tag Tag associated with this action
+	 */
 	public function __construct($tag) {
 		$this->tag = $tag;
 	}
@@ -68,6 +71,11 @@ class Action {
 		}
 	}
 
+	/**
+	 * Create data describing the action suitable for sending to client
+	 * @param Site $site The site object
+	 * @return array of data
+	 */
 	public function data(Site $site) {
 		$data = [
 			'tag'=>$this->tag

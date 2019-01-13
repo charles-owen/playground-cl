@@ -17,7 +17,10 @@ use CL\Playground\Action\Action;
  * @endcond
  */
 class Menu {
-
+	/**
+	 * Menu constructor.
+	 * @param string $name Name to display for the menu option
+	 */
 	public function __construct($name) {
 		$this->name = $name;
 	}

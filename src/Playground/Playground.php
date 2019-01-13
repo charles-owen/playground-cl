@@ -152,6 +152,8 @@ class Playground {
 	 * Load the playground with data from the file system.
 	 * @param Site $site The site object
 	 * @param User $user User we are loading for
+	 * @param string $appTag Application tag for the file system
+	 * @param string $name File system name
 	 */
 	public function load(Site $site, User $user, $appTag, $name) {
 		$fileSystem = new FileSystem($site->db);
