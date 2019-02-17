@@ -4,6 +4,7 @@ export const Tab = function(tabs, data) {
 
 	this.view = null;
 	this.tag = data.tag;
+	this.name = data.name;
 
 	let li = document.createElement('li');
 	this.li = li;

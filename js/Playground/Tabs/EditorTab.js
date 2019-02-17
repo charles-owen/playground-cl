@@ -1,5 +1,4 @@
 import {Tab} from './Tab';
-import {Tools} from "../DOM/Tools";
 
 export const EditorTab = function(tabs, data) {
 	Tab.call(this, tabs, data);
@@ -36,6 +35,13 @@ export const EditorTab = function(tabs, data) {
 	});
 
 	this.set = function(text) {
+		// Data from the file system may consist of either just
+		// text (old format) or text in an object. This allows
+		// either case to work.
+		if(text.data !== undefined) {
+			text = text.data;
+		}
+
 		editor.textarea.value = text;
 
 		let lines = 0;
@@ -75,59 +81,6 @@ export const EditorTab = function(tabs, data) {
 		}, 0);
 
 	}
-
-	let text = `import {Tab} from './Tab';
-import {Tools} from "../DOM/Tools";
-
-export const OutputTab = function(tabs, data) {export const OutputTab = function(tabs, data) {export const OutputTab = function(tabs, data) {
-	Tab.call(this, tabs, data);
-
-	let view = document.createElement('div');
-	view.classList.add('cl-pg-view');
-	view.classList.add('output');
-	this.view = view;
-	
-	view.innerText = \`\`;
-}
-
-import {Tab} from './Tab';
-import {Tools} from "../DOM/Tools";
-
-export const OutputTab = function(tabs, data) {
-	Tab.call(this, tabs, data);
-
-	let view = document.createElement('div');
-	view.classList.add('cl-pg-view');
-	view.classList.add('output');
-	this.view = view;
-	
-	view.innerText = \`\`;
-}
-import {Tab} from './Tab';
-import {Tools} from "../DOM/Tools";
-
-export const OutputTab = function(tabs, data) {
-	Tab.call(this, tabs, data);
-
-	let view = document.createElement('div');
-	view.classList.add('cl-pg-view');
-	view.classList.add('output');
-	this.view = view;
-	
-	view.innerText = \`\`;
-}
-
-OutputTab.prototype = Object.create(Tab.prototype);
-OutputTab.prototype.constructor = OutputTab;`;
-
-	text = `.text
-.thumb
-
-loop:
-    mov r0,#7
-    mov r1,r2
-    and r3,r4
-    b loop`;
 
 	this.set('');
 }

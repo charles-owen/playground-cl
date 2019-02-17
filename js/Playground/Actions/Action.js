@@ -23,7 +23,7 @@ export const Action = function(site, options) {
 		for(const source of options.sources) {
 			const tab = this.main.getTab(source);
 			if(tab !== null) {
-				sources[source] = tab.get();
+				sources[source] = {name: tab.name, data: tab.get()};
 			}
 		}
 
