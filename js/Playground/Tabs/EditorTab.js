@@ -25,7 +25,8 @@ export const EditorTab = function(tabs, data) {
 		resize: 'none',
 		tab: true,
 		autoIndent: true,
-		styles: null
+		styles: null,
+		spellcheck: true
 	});
 
 	const scrollable = editor.textarea;
