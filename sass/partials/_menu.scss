@@ -17,11 +17,15 @@ div.cl-playground nav.cl-pg-menubar {
     user-select: none;
     cursor: pointer;
 
-    a, a:link, a:visited {
+    a {
       font-family: $menu-font;
       font-size: $menu-font-size;
       color: $menu-color;
       text-decoration: none;
+    }
+
+    a:link, a:visited {
+      color: $menu-color;
     }
   }
 
@@ -48,11 +52,15 @@ div.cl-playground nav.cl-pg-menubar {
       padding: 0.25em 2em 0.25em 0.5em;
       position: relative;
 
-      a, a:link, a:visited {
+      a {
         font-family: $menu-font;
         font-size: $menu-font-size;
         color: $menu-color;
         text-decoration: none;
+      }
+
+      a:link, a:visited {
+        color: $menu-color;
       }
     }
 
