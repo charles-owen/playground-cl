@@ -1,3 +1,5 @@
+@use "sass:math";
+
 div.cl-playground {
   div.cl-playground-root, div.cl-playground-left, div.cl-playground-right,
   div.cl-playground-top, div.cl-playground-bottom {
@@ -20,7 +22,7 @@ div.cl-playground {
       padding: 0;
       top: 0;
       height: 100%;
-      right: -$drag-bar-width / 2;
+      right: -5px; // math.div(-$drag-bar-width, 2);
       width: $drag-bar-width;
       background: transparent;
       z-index: 100;
@@ -41,7 +43,7 @@ div.cl-playground {
       margin: 0;
       border: 0;
       padding: 0;
-      bottom: -$drag-bar-width / 2;
+      bottom: -5px; // math.div(-$drag-bar-width, 2);
       height: $drag-bar-width;
       width: 100%;
       background: transparent;
