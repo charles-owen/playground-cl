@@ -11,9 +11,9 @@
   "author": "Charles B. Owen",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime": "^7.14.6",
+    "@babel/runtime": "^7.18.9",
     "course-cl": ">=0.0.1",
     "dialog-cl": "^1.0.6",
-    "resizer-cl": "~2.4.3"
+    "resizer-cl": "~2.4.4"
   }
 }
