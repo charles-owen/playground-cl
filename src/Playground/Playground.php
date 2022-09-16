@@ -112,11 +112,11 @@ class Playground {
 	 * @param string|null $class Optional class to add to the div
 	 * @return string HTML
 	 */
-	public function present(Site $site, User $user, $class=null) {
+	public function present(Site $site, User $user, $class='') {
 
 		$data = $this->data($site);
 
-		if(strlen($class) > 0) {
+		if($class !== null && strlen($class) > 0) {
 			$class = ' ' . $class;
 		}
 
